@@ -18,24 +18,23 @@
   <base href="/app">
 </head>
 <body>
-    <!--<ul class="nav nav-tabs" ng-controller="TabsCtrl">
-      <li ng-class="tabClass(tab)" ng-repeat="tab in tabs" tab="tab">
-      	<a href="{{tab.link}}" ng-click="setSelectedTab(tab)">{{tab.label}}</a>
-      </li>
-    </ul>
-    <div ng-view></div>
-	-->
-  <div ng-controller="TabsCtrl"> 
-    <tabset>
-        <tab
-            ng-repeat="tab in tabs"
-            heading="{{tab.label}}"
-            select="go(tab.link)"
-            active="tab.active">
-        </tab>
-    </tabset>
- 
-    <div ui-view></div>
+<div class="row">
+	<div class="col-sm-8 panel panel-default">
+		<div ng-controller="TabsCtrl"> 
+			<tabset>
+				<tab
+					ng-repeat="tab in tabs"
+					heading="{{tab.label}}"
+					select="go(tab.link)"
+					active="tab.active">
+				</tab>
+			</tabset> 
+			<div ui-view></div>
+		</div>	
+	</div>
+	<div class="col-sm-3">
+		<div ng-include="'./app/task-list/task-list.html'"></div>
+	</div>
 </div>
 
   <!--[if lt IE 7]>
