@@ -1,41 +1,47 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var app = angular.module('emploeeManagerApp', [
-  'ngRoute',
+var app = angular.module('app.emploeeManagerApp', [
   'emploeeManagerApp.typeahead_list',
   'emploeeManagerApp.full_list',
+  'ui.router',
   'myApp.version',
-  //'ui.bootstrap'
+  "ui.bootstrap"
   ]);
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $routeProvider.
-      when('/typeaheadlist', {templateUrl: '/app/typeahead-list/typeahead-list.html',   controller: 'TypeaheadCtrl' }).
-      when('/fulllist', {templateUrl: '/app/full-list/full-list.html',   controller: 'FullListCtrl' }).
-      otherwise({redirectTo: '/typeaheadlist'});
-      
-      $locationProvider.html5Mode(false);
+app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {      
+	  $urlRouterProvider.otherwise('/typeaheadlist');
+	  
+	  $stateProvider
+        .state('typeaheadlist', {
+            url: '/typeaheadlist',
+            templateUrl: './app/typeahead-list/typeahead-list.html',
+			controller: 'TypeaheadCtrl'
+        })
+		.state('fulllist', {
+            url: '/fulllist',
+            templateUrl: './app/full-list/full-list.html',
+			controller: 'FullListCtrl'
+        });		      
 }])
 
-app.controller('TabsCtrl',[ '$scope', '$location',
-
-function ($scope, $location) {
+app.controller('TabsCtrl',[ '$scope', '$location', '$state', function ($scope, $location, $state) {
   $scope.tabs = [
-      { link : '#typeaheadlist', label : 'Quick search' },
-      { link : '#fulllist', label : 'Full employee list' },
+      { link : 'typeaheadlist', label : 'Quick search', active: false  },
+      { link : 'fulllist', label : 'Full employee list', active: false  },
     ]; 
     
-  $scope.selectedTab = $scope.tabs[0];    
-  $scope.setSelectedTab = function(tab) {
-    $scope.selectedTab = tab;
-  }
-  
-  $scope.tabClass = function(tab) {
-    if ($scope.selectedTab == tab) {
-      return "active";
-    } else {
-      return "";
-    }
-  }
+  $scope.go = function(route){
+        $state.go(route);
+    };
+ 
+    $scope.active = function(route){
+        return $state.is(route);
+    };
+ 
+    $scope.$on("$stateChangeSuccess", function() {
+        $scope.tabs.forEach(function(tab) {
+            tab.active = $scope.active(tab.link);
+        });
+    });
 }])

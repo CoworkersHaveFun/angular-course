@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="emploeeManagerApp">
+<html ng-app="app.emploeeManagerApp">
 <!--[if lt IE 7]>      <html lang="en" ng-app="emploeeManagerApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="emploeeManagerApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="emploeeManagerApp" class="no-js lt-ie9"> <![endif]-->
@@ -15,15 +15,28 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/app/app.css">
   <script src="/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <base href="/app">
 </head>
 <body>
-    <ul class="nav nav-tabs" ng-controller="TabsCtrl">
+    <!--<ul class="nav nav-tabs" ng-controller="TabsCtrl">
       <li ng-class="tabClass(tab)" ng-repeat="tab in tabs" tab="tab">
       	<a href="{{tab.link}}" ng-click="setSelectedTab(tab)">{{tab.label}}</a>
       </li>
     </ul>
     <div ng-view></div>
-  
+	-->
+  <div ng-controller="TabsCtrl"> 
+    <tabset>
+        <tab
+            ng-repeat="tab in tabs"
+            heading="{{tab.label}}"
+            select="go(tab.link)"
+            active="tab.active">
+        </tab>
+    </tabset>
+ 
+    <div ui-view></div>
+</div>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -35,14 +48,16 @@
   -->
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-route/angular-route.js"></script>  
-    <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
-
-  <!--<script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>--!>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+  
+  <script src="/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+  
   <script src="/app/components/version/version.js"></script>
   <script src="/app/components/version/version-directive.js"></script>
   <script src="/app/components/version/interpolate-filter.js"></script>
   <script src="/app/typeahead-list/typeahead-list.js"></script>
   <script src="/app/full-list/full-list.js"></script>
   <script src="/app/app.js"></script>
+
 </body>
 </html>
