@@ -1,1 +1,21 @@
 <p>This is the partial for typeahead-list view.</p>
+
+<div ng-controller="TypeaheadCtrl">
+    <tags-input ng-model="tags" display-property="id" placeholder="Add a tag" template="custom-tag-template">
+        <auto-complete source="loadTags($query)" template="custom-result-template"></auto-complete>
+    </tags-input>
+</div>
+
+<script type="text/ng-template" id="custom-result-template">            
+        <span class='{{data.id}}'>{{data.name}}</span>
+      </div>
+</script>
+
+<script type="text/ng-template" id="custom-tag-template">
+      <div class="tag-template">
+        <div>
+          <span>{{data.name}}</span>
+          <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+        </div>
+      </div>
+</script>
