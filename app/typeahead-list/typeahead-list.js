@@ -4,12 +4,7 @@ angular.module('emploeeManagerApp.typeahead_list', ['ngTagsInput', 'userServices
 
 
 .controller('TypeaheadCtrl', ['$scope', '$http', 'Users', function($scope, $http, Users) {
-	$scope.tags = [
-                    { id: '7777', name: 'Employee1' },
-                    { id: '7778', name: 'Employee2' },
-                    { id: '7779', name: 'Employee3' },
-                    { id: '7780', name: 'Employee4' }
-                ];
+	$scope.tags = [];
     
 	$scope.loadTags = function(query) {
 		var params = {
@@ -20,4 +15,11 @@ angular.module('emploeeManagerApp.typeahead_list', ['ngTagsInput', 'userServices
 				return data;
 			});                 
     };
+    
+    $scope.isRefreshAvailable = isRefreshAvailable;
+    
+    function isRefreshAvailable()
+    {
+    	return $scope.tags.length > 0;
+    }
 }]);
