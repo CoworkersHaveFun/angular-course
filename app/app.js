@@ -4,6 +4,7 @@
 var app = angular.module('app.emploeeManagerApp', [
   'emploeeManagerApp.typeahead_list',
   'emploeeManagerApp.full_list',
+  'emploeeManagerApp.task_list',
   'ui.router',
   'myApp.version',
   "ui.bootstrap"

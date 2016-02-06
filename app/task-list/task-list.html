@@ -1,1 +1,27 @@
-<p>This is the partial for task-list fiew.</p>
+<div ng-controller="TaskCtrl">
+	<div class="row" ng-form="newTeamForm">
+		<div class="input-group">
+    		<input type="text" 
+    			ng-model="newTeam" 
+    			class="form-control" 
+    			ng-pattern="expression" 
+    			ng-required="true" 
+    			unique
+    			name="newTeam"/>
+    		<span class="input-group-btn">
+    			<a  class="btn btn-primary" ng-class="{disabled: !isTeamValid()}" ng-click="addTeam(newTeam)">+</a>    	
+    		</span>
+    		
+    	</div>
+    	<span class="errorMessage" ng-show="newTeamForm.newTeam.$error.unique">
+    			Team name duplicate
+		</span>
+	</div>  
+	<accordion>
+  		<accordion-group heading="{{team.name}}" ng-repeat="team in teams">
+     		<accordion  close-others="oneAtATime">
+        		<accordion-group heading="{{employee.name}}" ng-repeat="employee in team.employees">           		
+        </accordion-group>
+     </accordion>
+  </accordion-group>
+</div>
